@@ -1,0 +1,157 @@
+-------------Amazon Sales Data Analysis using SQL (PostgreSQL) Solve below business Problems -------------
+
+--1. Retrieve the total number of customers in the database.
+
+select count(customer_id) from customers
+
+--2. Calculate the total number of sellers registered on Amazon.
+
+select count(seller_id) from sellers
+
+--3. List all unique product categories available.
+
+select Distinct product_id from products
+
+select * from products
+
+--4. Find the top 5 best-selling products by quantity sold.
+
+select sub_category from orders 
+order by quantity DESC
+limit 5
+
+--5. Determine the total revenue generated from sales.
+
+select Sum(sale) As total_rev from orders
+
+--6. List all customers who have made at least one return.
+
+select distinct customer_id from customers
+
+--7. Calculate the average price of products sold.
+
+select product_id ,avg(price) As Avg_prices 
+from products
+group by 1
+
+--8. Identify the top 3 states with the highest total sales.
+
+select state, 
+sum(sale) As Highest_total_sales 
+from orders
+where state IS NOT NULL
+group by 1
+Order by sum(sale) DESC
+limit 3
+
+--9. Find the product category with the highest average sale price.
+select * from orders
+
+select category ,
+Avg(sale) As Hig_Avg_prices
+from  orders
+where category IS NOT NULL
+group by 1
+
+--10. List all orders with a sale amount greater than $100.
+
+select * from orders
+where sale > 1000
+
+--11. Calculate the total number of returns processed.
+
+Select count(return_id) from returns
+
+--12. Identify the top-selling seller based on total sales amount.
+
+select seller_id,
+sum(sale) As Total_sales
+from orders
+group by 1 
+order by Sum(sale) DESC
+
+
+--13. List the products with the highest quantity sold in each category.
+
+select sub_category,count(order_id) AS total_count_of_orders ,
+sum(quantity) AS highest_quantity_sold
+from orders
+where sub_category IS NOT NULL
+group by 1
+
+
+--14. Determine the average sale amount per order.
+
+select avg(sale) AS average_sale_amount from orders 
+
+
+--15. Find the top 5 customers who have spent the most money.
+
+select customer_id,
+sum(sale)AS spent_the_most_money
+from orders 
+group by 1 
+order by sum(sale) DESC
+
+--16. Calculate the total number of orders placed in each state.
+
+select state,count(order_id) As Total_orders
+from orders
+where state IS NOT NULL
+group by 1
+order by Count(order_id) DESC
+
+
+--17. Identify the product sub-category with the highest total sales.
+
+ select sub_category,sum(sale) from orders 
+ group by 1
+order by sum(sale) DESC
+ 
+--18. List the orders with the highest total sale amount.
+
+select order_id, sum(sale) as Total_sale 
+from orders 
+group by 1
+order by sum(sale)
+
+--19. Calculate the total sales revenue for each seller.
+
+select seller_id, sum(sale) as Total_sale 
+from orders group by 1 order by 2 DESC
+
+--20. Find the top 3 states with the highest average sale per order.
+
+select state, avg(sale)as AVG_sales 
+from orders 
+group by 1 
+order by 2 desc
+
+--21. Identify the product category with the highest total quantity sold.
+
+select sub_category,sum(quantity) from orders 
+ group by 1
+order by sum(sale) DESC
+
+
+--22. List the orders with the highest quantity of products purchased.
+
+select product_id, sum(quantity) As quantity 
+from orders  
+group by 1
+order by 2 desc
+
+--23. Calculate the average sale amount for each product category.
+
+select sub_category,avg(sale) from orders 
+ group by 1
+order by 2 DESC 
+
+--24. Find the top-selling seller based on the number of orders processed.
+
+select seller_id,
+count(order_id) As Total_orders
+from orders
+group by 1 
+order by 2 DESC
+
